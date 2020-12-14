@@ -61,7 +61,6 @@ class Server:
                     if (username == "admin" and password == "admin"):
                         response = self._readFile("info.html")
                     else:
-                        header = 'HTTP/1.1 404 Not Found\n\n'
                         response = self._readFile("404.html")
      
             
