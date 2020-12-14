@@ -48,6 +48,8 @@ class Server:
             requestedFile = 'index.html'    # Load index file as default
     
         try:
+            header = 'HTTP/1.1 200 OK\n'
+       
             if (requestedFile != "favicon.ico"):
                 if (method == "GET"):
                     response = self._readFile(requestedFile)
@@ -59,9 +61,10 @@ class Server:
                     if (username == "admin" and password == "admin"):
                         response = self._readFile("info.html")
                     else:
+                        header = 'HTTP/1.1 404 Not Found\n\n'
                         response = self._readFile("404.html")
      
-            header = 'HTTP/1.1 200 OK\n'
+            
      
             if(requestedFile.endswith(".jpg")):
                 mimetype = 'image/jpg'
@@ -74,8 +77,6 @@ class Server:
      
         except Exception as error:
             print(error)
-            header = 'HTTP/1.1 404 Not Found\n\n'
-            response = '<html><body><center><h3>Error 404: File not found</h3><p>Python HTTP Server</p></center></body></html>'.encode('utf-8')
             sys.exit(1)
                  
         response_raw = header.encode('utf-8')
